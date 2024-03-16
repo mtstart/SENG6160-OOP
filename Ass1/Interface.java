@@ -117,7 +117,8 @@ public class Interface {
 
 	// Function 1: Add farm
 	private void addFarm() {
-		String lastName;
+		String lastName = "";
+		String farmName = "";
 
 		// check if all farms are occupied
 		// if both farms are occupied, show error message
@@ -145,12 +146,15 @@ public class Interface {
 		// validate farms
 		if (this.farm1 == null) { // validate if farm1 is null, if null, create farm1
 			this.farm1 = new Farm();
-			this.farm1.addFarm("farm1", lastName);
+			farmName = this.farm1.addFarm("farm1", lastName);
+
+			this.printMessage(farmName + " is created.");
 
 		} else if (this.farm2 == null) { // validate if farm2 is null, if null, create farm2
 			this.farm2 = new Farm();
-			this.farm2.addFarm("farm2", lastName);
+			farmName = this.farm2.addFarm("farm2", lastName);
 
+			this.printMessage(farmName + " is created.");
 		}
 
 	}
@@ -289,6 +293,9 @@ public class Interface {
 		// adjust sensor quantity
 		farm = farm.updateSensorQuantity(sensor, addQuantity);
 
+		// check sensor quantity
+		this.printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
+
 	}
 
 	// get all required inputs from user for adding sensors
@@ -313,8 +320,13 @@ public class Interface {
 		// get sensor quantity
 		quantity = this.getInputInt("sensor quantity");
 
+		// perform the function in Farm class
 		farm.addSensor(farm, typeName, price, weight, quantity);
 
+		// output message that sensors are added
+		String message = String.format("%s sensor is added with price $%.1f, weight %.1f kg, and quantity %d.", 
+			typeName, price, weight, quantity );
+		this.printMessage(message);
 	}
 
 	// This is a reusable function to help get an input in double type
@@ -391,6 +403,7 @@ public class Interface {
 	private void reduceFarmSensorQuantity() {
 		String farmName, typeName, message = "";
 		Farm getFarm;
+		int removeQuantity = -1;
 		// Sensor farmSensor = null;
 
 		// get name input to locate farm
@@ -414,7 +427,10 @@ public class Interface {
 
 			// reduce quantity
 			if (this.farm1.getName().equals(farmName) && farmSensor != null) {
-				this.farm1 = this.farm1.updateSensorQuantity(farmSensor, -1);
+				this.farm1 = this.farm1.updateSensorQuantity(farmSensor, removeQuantity);
+
+				// check sensor quantity
+				this.printMessage(this.farm1.checkSensorQuantity(typeName, removeQuantity));
 			}
 		}
 
@@ -424,7 +440,10 @@ public class Interface {
 
 			// reduce quantity
 			if (this.farm2.getName().equals(farmName) && farmSensor != null) {
-				this.farm2 = this.farm2.updateSensorQuantity(farmSensor, -1);
+				this.farm2 = this.farm2.updateSensorQuantity(farmSensor, removeQuantity);
+
+				// check sensor quantity
+				this.printMessage(this.farm2.checkSensorQuantity(typeName, removeQuantity));
 			}
 		}
 
@@ -460,6 +479,7 @@ public class Interface {
 	// Function 6: List sensors of specific farm, with type, price, weight, and quantity 
 	private void listFarmSensors() {
 		String farmName = this.getInputString("farm name");
+		String message = "";
 		
 		// if no farm exists
 		if (this.checkFarmExist(farmName) == null) {
@@ -469,12 +489,16 @@ public class Interface {
 		
 		if (this.farm1 != null) {
 			if (this.farm1.getName().equals(farmName)) {
-				this.farm1.listSensorDetails();
+				
+				// check if sensors exist
+				message += this.farm1.listSensorDetails();
+				this.printMessage(message);
 			}
 		} 
 		if (this.farm2 != null) {
 			if (this.farm2.getName().equals(farmName)) {
-				this.farm2.listSensorDetails();
+				message += this.farm2.listSensorDetails();
+				this.printMessage(message);
 			}
 		}
 	}
@@ -525,6 +549,7 @@ public class Interface {
 	
 	// Function 8: Display total number of sensors in a farm and total cost
 	private void listSensorSummary() {
+		String message = "";
 		
 		// get farm name
 		String farmName = this.getInputString("farm name");
@@ -538,12 +563,14 @@ public class Interface {
 		// start calculate total sensor cost of the farm
 		if (this.farm1 != null) {
 			if (this.farm1.getName().equals(farmName)) {
-				this.farm1.getFarmSensorCostSummary();
+				message = this.farm1.getFarmSensorCostSummary();
+				this.printMessage(message);
 			}
 		}
 		if (this.farm2 != null) {
 			if (this.farm2.getName().equals(farmName)) {
-				this.farm2.getFarmSensorCostSummary();			
+				message = this.farm2.getFarmSensorCostSummary();			
+				this.printMessage(message);
 			}
 		}
 		

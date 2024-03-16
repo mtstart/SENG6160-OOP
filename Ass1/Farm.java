@@ -1,7 +1,5 @@
 /*	Chi Lam Tsang */
 
-import javax.swing.JOptionPane;
-
 public class Farm {
 	/*
 	 * this program keep tracks of up to 2 farms
@@ -16,23 +14,19 @@ public class Farm {
 		return this.name;
 	}
 
-	// this is a reusable function to output a message
-	private void printMessage(String message) {
-		JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
-	}
-
 	// Feature 1: Add Farm
-	public void addFarm(String farmname, String lastName) {
+	public String addFarm(String farmname, String lastName) {
+		String farmName = "";
 
 		// set the farm name
-		this.setFarmName(farmname, lastName);
+		farmName = this.setFarmName(farmname, lastName);
+
+		return farmName;
 	}
 
 	private String setFarmName(String farmname, String lastName) {
 
 		this.name = farmname + lastName;
-
-		this.printMessage(this.getName() + " is created.");
 
 		return this.name;
 	}
@@ -92,17 +86,13 @@ public class Farm {
 		} else if (this.sensor3 == null) {
 			this.sensor3 = new Sensor();
 			this.sensor3.insertSensor(typeName, price, weight, quantity);
-		} else {
-			this.printMessage("All sensor spots are occupied");
-			return this;
 		}
-
+		
 		return this;
 	}
 
 	// Function 3: Add existing farm sensor
 	public Farm updateSensorQuantity(Sensor sensor, int updateQuantity) {
-		String message = "";
 
 		// locate the corresponding sensor
 		if (this.sensor1 != null) {
@@ -119,24 +109,39 @@ public class Farm {
 			}
 		}
 
+
+		return this;
+	}
+
+	// Function 3: Add existing farm sensor
+	// Function 4: Remove Farm Sensor
+	public String checkSensorQuantity(String typeName, int updateQuantity) {
+		String message = "";
+		// for adding sensor quantity, 
+		// output an message that sensors are added
+
+		// for removing sensor quantity, 
+		// output an message that sensors are removed
+		// and if the quanatity becomes zero, remove the sensor type
+
+
 		// for adding sensor quantity
 		if (updateQuantity > 0) {
 			message = String.format("%d %s sensor(s) is added in %s.",
-					updateQuantity, sensor.getType(), this.name);
-			this.printMessage(message);
+					updateQuantity, typeName, this.name);
 		} else {
-			message = String.format("%d %s sensor(s) is removed in %s.",
-				Math.abs(updateQuantity), sensor.getType(), this.name);
-			this.printMessage(message);
+			message = String.format("%d %s sensor(s) is removed in %s. \n",
+				Math.abs(updateQuantity), typeName, this.name);
 
 			// for reducing sensor quantity
-			if (this.getSensorQuantitySum(sensor.getType()) == 0) {
-				this.removeSensor(sensor.getType());
+			if (this.getSensorQuantitySum(typeName) == 0) {
+				this.removeSensor(typeName);
+
+				message += "As the sensor quantity is zero, " + typeName + " sensor is removed.";
 			}
 
 		}
-
-		return this;
+		return message;
 	}
 
 	// Function 4: Remove farm sensor if quantity is 0
@@ -158,7 +163,6 @@ public class Farm {
 			}
 		}
 
-		this.printMessage("As the sensor quantity is zero, " + typeName + " sensor is removed.");
 	}
 
 	// This is a reusable function for function 5 and 7
@@ -192,15 +196,15 @@ public class Farm {
 	}
 
 	// Function 6: List farm sensor type, price, weight, quantity
-	public void listSensorDetails() {
+	public String listSensorDetails() {
 		String message = "";
 
 		// check if there any sensors
 		if (this.countFarmSensorType() > 0) {
 			message += this.getName() + " has the following sensor(s). \n";
 		} else {
-			this.printMessage("No sensors at farm.");
-			return;
+			message = "No sensors at farm.";
+			return message;
 		}
 
 		// get sensor details from sensor
@@ -215,13 +219,13 @@ public class Farm {
 		}
 
 		// output message
-		this.printMessage(message);
+		return message;
 
 	}
 
 	// Function 8: Display total number of sensors in a farm and total cost
 	// farm1Smith has 30 sensors of value $4000
-	public void getFarmSensorCostSummary() {
+	public String getFarmSensorCostSummary() {
 		int totalQuantity = 0;
 		double totalCost = 0.0;
 		String message = "";
@@ -242,8 +246,8 @@ public class Farm {
 		// display summary
 		message = String.format("%s has %d sensors of value $%.1f \n",
 				this.getName(), totalQuantity, totalCost);
-		this.printMessage(message);
 
+		return message;
 	}
 
 }

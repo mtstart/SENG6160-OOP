@@ -50,20 +50,12 @@ public class Sensor {
 	public void setQuantity(int sensorQuantity) {
 		this.quantity = sensorQuantity;
 	}
-	
-	private void printMessage(String message) {
-		JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
-	}
 
 	public Sensor insertSensor(String typeName, Double price, Double weight, int quantity) {
 		this.setType(typeName);
 		this.setPrice(price);
 		this.setWeight(weight);
 		this.setQuantity(quantity);
-
-		String message = String.format("%s sensor is added with price $%.1f, weight %.1f kg, and quantity %d.", 
-			this.getType(), this.getPrice(), this.getWeight(), this.getQuantity() );
-		this.printMessage(message);
 
 		return this;
 	}
