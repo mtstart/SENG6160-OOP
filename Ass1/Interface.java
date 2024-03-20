@@ -210,6 +210,7 @@ public class Interface {
 		Farm getFarm;
 		Sensor farmSensor1 = null;
 		Sensor farmSensor2 = null;
+		Sensor getSensor = null;
 
 		// get name input to locate farm
 		farmName = getInputString("farm name");
@@ -240,7 +241,8 @@ public class Interface {
 			farmSensor2 = farm2.getFarmSensor(typeName);
 		}
 
-		Sensor getSensor = farmSensor1 == null ? farmSensor2 : farmSensor1;
+		// get the found sensor
+		getSensor = farmSensor1 == null ? farmSensor2 : farmSensor1;
 		
 		// if the sensor type exists in the farm, adjust the sensor quantity
 		// if not, add a sensor to the farm
@@ -298,9 +300,8 @@ public class Interface {
 		// get sensor quantity
 		addQuantity = getInputInt("sensor quantity");
 
-		// adjust sensor quantity
-		farm.addExistingSensor(farm, sensor.getType(), addQuantity);
-		// TOD: FIX THIS
+		// adjust sensor quantityf
+		farm.updateSensorQuantity(sensor.getType(), addQuantity);
 
 		// check sensor quantity
 		printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
@@ -413,7 +414,6 @@ public class Interface {
 		String farmName, typeName, message = "";
 		Farm getFarm;
 		int removeQuantity = -1;
-		// Sensor farmSensor = null;
 
 		// get name input to locate farm
 		farmName = getInputString("farm name");
