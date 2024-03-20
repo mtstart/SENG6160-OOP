@@ -298,7 +298,7 @@ public class Interface {
 		addQuantity = getInputInt("sensor quantity");
 
 		// adjust sensor quantity
-		farm.updateSensorQuantity(sensor, addQuantity);
+		farm.updateSensorQuantity(sensor.getType(), addQuantity);
 
 		// check sensor quantity
 		printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
@@ -434,7 +434,7 @@ public class Interface {
 
 			// reduce quantity
 			if (farm1.getName().equals(farmName) && farmSensor != null) {
-				farm1.updateSensorQuantity(farmSensor, removeQuantity);
+				farm1.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
 				printMessage(farm1.checkSensorQuantity(typeName, removeQuantity));
@@ -447,7 +447,7 @@ public class Interface {
 
 			// reduce quantity
 			if (farm2.getName().equals(farmName) && farmSensor != null) {
-				farm2.updateSensorQuantity(farmSensor, removeQuantity);
+				farm2.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
 				printMessage(farm2.checkSensorQuantity(typeName, removeQuantity));

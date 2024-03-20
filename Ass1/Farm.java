@@ -75,7 +75,7 @@ public class Farm {
 	}
 
 	// Function 3: Add new farm sensor
-	public Farm addSensor(Farm farm, String typeName, Double price, Double weight, int quantity) {
+	public void addSensor(Farm farm, String typeName, Double price, Double weight, int quantity) {
 
 		if (sensor1 == null) {
 			sensor1 = new Sensor();
@@ -88,23 +88,22 @@ public class Farm {
 			sensor3.insertSensor(typeName, price, weight, quantity);
 		}
 		
-		return this;
 	}
 
 	// Function 3: Add existing farm sensor
-	public void updateSensorQuantity(Sensor sensor, int updateQuantity) {
+	public void updateSensorQuantity(String sensorType, int updateQuantity) {
 
 		// locate the corresponding sensor
 		if (sensor1 != null) {
-			if (sensor1.getType().equals(sensor.getType())) {
+			if (sensor1.getType().equals(sensorType)) {
 				sensor1.adjustSensorQuantity(updateQuantity);
 			}
 		} else if (sensor2 != null) {
-			if (sensor2.getType().equals(sensor.getType())) {
+			if (sensor2.getType().equals(sensorType)) {
 				sensor2.adjustSensorQuantity(updateQuantity);
 			}
 		} else if (sensor3 != null) {
-			if (sensor2.getType().equals(sensor.getType())) {
+			if (sensor2.getType().equals(sensorType)) {
 				sensor3.adjustSensorQuantity(updateQuantity);
 			}
 		}
@@ -121,7 +120,6 @@ public class Farm {
 		// for removing sensor quantity, 
 		// output an message that sensors are removed
 		// and if the quanatity becomes zero, remove the sensor type
-
 
 		// for adding sensor quantity
 		if (updateQuantity > 0) {
@@ -147,17 +145,17 @@ public class Farm {
 		
 		if (sensor1 != null) {
 			if (sensor1.getType().equals(typeName)) {
-				sensor1.removeSensor();
+				sensor1 = null;
 			}
 		} 
 		if (sensor2 != null) {
 			if (sensor2.getType().equals(typeName)) {
-				sensor2.removeSensor();
+				sensor2 = null;
 			}
 		}
 		if (sensor3 != null) {
 			if (sensor2.getType().equals(typeName)) {
-				sensor3.removeSensor();
+				sensor3 = null;
 			}
 		}
 

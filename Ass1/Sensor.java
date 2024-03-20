@@ -50,20 +50,14 @@ public class Sensor {
 		quantity = sensorQuantity;
 	}
 
-	public Sensor insertSensor(String typeName, Double price, Double weight, int quantity) {
+	public void insertSensor(String typeName, Double price, Double weight, int quantity) {
 		setType(typeName);
 		setPrice(price);
 		setWeight(weight);
 		setQuantity(quantity);
-
-		return this;
 	}
 
-	public Sensor removeSensor() {
-		return null;
-	}
-
-	public Sensor adjustSensorQuantity(int updateQuantity) {
+	public void adjustSensorQuantity(int updateQuantity) {
 		// set new quantitiy
 		int oriQuantity = getQuantity();
 		int newQuantity = oriQuantity + updateQuantity;
@@ -71,7 +65,6 @@ public class Sensor {
 		// update quantity
 		setQuantity(newQuantity);
 
-		return this;
 	}
 
 	public String getSensorDetailsString() {
