@@ -75,17 +75,53 @@ public class Farm {
 	}
 
 	// Function 3: Add new farm sensor
-	public void addSensor(Farm farm, String typeName, Double price, Double weight, int quantity) {
+	public void addNewSensor(Farm farm, String sensorType, Double price, Double weight, int quantity) {
 
 		if (sensor1 == null) {
 			sensor1 = new Sensor();
-			sensor1.insertSensor(typeName, price, weight, quantity);
+			sensor1.insertSensor(sensorType, price, weight, quantity);
 		} else if (sensor2 == null) {
 			sensor2 = new Sensor();
-			sensor2.insertSensor(typeName, price, weight, quantity);
+			sensor2.insertSensor(sensorType, price, weight, quantity);
 		} else if (sensor3 == null) {
 			sensor3 = new Sensor();
-			sensor3.insertSensor(typeName, price, weight, quantity);
+			sensor3.insertSensor(sensorType, price, weight, quantity);
+		}
+
+	}
+
+	// This function outputs an message saying there are existing sensor with corresponding price and weight
+	// This message is output for function 3, adding existing sensors.
+	public String getExistingSensorInfo(String sensorType) {
+		String message = "";
+		Sensor getSensor = getFarmSensor(sensorType);
+
+		message = String.format("%s sensor exists, with price $%.1f and weight %.1f \n",
+			getSensor.getType(), getSensor.getPrice(), getSensor.getWeight());
+
+		return message;
+	}
+	
+	// Function 3: Add existing farm sensor
+	public void addExistingSensor(Farm farm, String sensorType, int addQuantity) {
+
+		// get the existing sensor
+		Sensor getSensor = getFarmSensor(sensorType);
+		int updateQuantity = getSensor.getQuantity() + addQuantity;
+
+		// locate the corresponding sensor
+		if (sensor1 != null) {
+			if (sensor1.getType().equals(sensorType)) {
+				sensor1.adjustSensorQuantity(updateQuantity);
+			}
+		} else if (sensor2 != null) {
+			if (sensor2.getType().equals(sensorType)) {
+				sensor2.adjustSensorQuantity(updateQuantity);
+			}
+		} else if (sensor3 != null) {
+			if (sensor2.getType().equals(sensorType)) {
+				sensor3.adjustSensorQuantity(updateQuantity);
+			}
 		}
 		
 	}
