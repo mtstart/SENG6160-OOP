@@ -131,22 +131,19 @@ public class Farm {
 	// For Function 3: Add existing farm sensor
 	public void addExistingSensor(Farm farm, String sensorType, int addQuantity) {
 
-		// get the existing sensor
-		Sensor getSensor = getFarmSensor(sensorType);
-		int updateQuantity = getSensor.getQuantity() + addQuantity;
 
 		// locate the corresponding sensor
 		if (sensor1 != null) {
 			if (sensor1.getType().equals(sensorType)) {
-				sensor1.adjustSensorQuantity(updateQuantity);
+				sensor1.adjustSensorQuantity(addQuantity);
 			}
 		} else if (sensor2 != null) {
 			if (sensor2.getType().equals(sensorType)) {
-				sensor2.adjustSensorQuantity(updateQuantity);
+				sensor2.adjustSensorQuantity(addQuantity);
 			}
 		} else if (sensor3 != null) {
 			if (sensor2.getType().equals(sensorType)) {
-				sensor3.adjustSensorQuantity(updateQuantity);
+				sensor3.adjustSensorQuantity(addQuantity);
 			}
 		}
 		

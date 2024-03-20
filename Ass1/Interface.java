@@ -438,11 +438,15 @@ public class Interface {
 			boolean isSensorExists = farm1.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm1.getFarmName().equals(farmName) && isSensorExists) {
-				farm1.updateSensorQuantity(typeName, removeQuantity);
-
-				// check sensor quantity
-				printMessage(farm1.checkSensorQuantity(typeName, removeQuantity));
+			if (farm1.getFarmName().equals(farmName)) {
+				if (isSensorExists) {
+					farm1.updateSensorQuantity(typeName, removeQuantity);
+	
+					// check sensor quantity
+					printMessage(farm1.checkSensorQuantity(typeName, removeQuantity));
+				} else {
+					printMessage("This sensor type does not exist in this farm.");
+				}
 			}
 		}
 
@@ -451,11 +455,15 @@ public class Interface {
 			boolean isSensorExists = farm2.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm2.getFarmName().equals(farmName) && isSensorExists) {
-				farm2.updateSensorQuantity(typeName, removeQuantity);
-
-				// check sensor quantity
-				printMessage(farm2.checkSensorQuantity(typeName, removeQuantity));
+			if (farm2.getFarmName().equals(farmName)) {
+				if (isSensorExists) {
+					farm2.updateSensorQuantity(typeName, removeQuantity);
+	
+					// check sensor quantity
+					printMessage(farm2.checkSensorQuantity(typeName, removeQuantity));
+				} else {
+					printMessage("This sensor type does not exist in this farm.");
+				}
 			}
 		}
 
