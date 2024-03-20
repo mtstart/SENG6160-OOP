@@ -14,7 +14,7 @@ public class Farm {
 		return name;
 	}
 
-	// Feature 1: Add Farm
+	// For Feature 1: Add Farm
 	public String addFarm(String farmName, String lastName) {
 		String name = "";
 
@@ -32,7 +32,33 @@ public class Farm {
 	}
 
 	// check if sensor type exists in any farm
-	public Sensor getFarmSensor(String typeName) {
+	public boolean checkSensorExists(String typeName) {
+
+		// clean input
+		typeName = typeName.toLowerCase().trim();
+
+		// check 3 sensors one by one to see if the sensors exists
+		if (sensor1 != null) {
+			if (sensor1.getType().equals(typeName)) {
+				return true;
+			}
+		} 
+		if (sensor2 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				return true;
+			}
+		}
+		if (sensor3 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	// get the specific sensor type
+	private Sensor getFarmSensor(String typeName) {
 		Sensor getSensor = null;
 
 		// clean input
@@ -74,7 +100,7 @@ public class Farm {
 		return counter;
 	}
 
-	// Function 3: Add new farm sensor
+	// For Function 3: Add new farm sensor
 	public void addNewSensor(Farm farm, String sensorType, Double price, Double weight, int quantity) {
 
 		if (sensor1 == null) {
@@ -102,7 +128,7 @@ public class Farm {
 		return message;
 	}
 	
-	// Function 3: Add existing farm sensor
+	// For Function 3: Add existing farm sensor
 	public void addExistingSensor(Farm farm, String sensorType, int addQuantity) {
 
 		// get the existing sensor
@@ -126,7 +152,7 @@ public class Farm {
 		
 	}
 
-	// Function 3: Add existing farm sensor
+	// For Function 3: Add existing farm sensor
 	public void updateSensorQuantity(String sensorType, int updateQuantity) {
 
 		// locate the corresponding sensor
@@ -176,7 +202,7 @@ public class Farm {
 		return message;
 	}
 
-	// Function 4: Remove farm sensor if quantity is 0
+	// For Function 4: Remove farm sensor if quantity is 0
 	private void removeSensor(String typeName) {
 		
 		if (sensor1 != null) {
@@ -200,7 +226,7 @@ public class Farm {
 	// This is a reusable function for function 5 and 7
 	// This function calculates the sum of the specific sensor's quantity
 
-	// Function 5: List total number of sensors of the farm
+	// For Function 5: List total number of sensors of the farm
 	// Function 7: Display Sensor Details, List sensor quantity of the specific farm
 	public int getSensorQuantitySum(String typeName) {
 		int counter = 0;
@@ -227,7 +253,7 @@ public class Farm {
 		return counter;
 	}
 
-	// Function 6: List farm sensor type, price, weight, quantity
+	// For Function 6: List farm sensor type, price, weight, quantity
 	public String listSensorDetails() {
 		String message = "";
 
@@ -255,7 +281,7 @@ public class Farm {
 
 	}
 
-	// Function 8: Display total number of sensors in a farm and total cost
+	// For Function 8: Display total number of sensors in a farm and total cost
 	// farm1Smith has 30 sensors of value $4000
 	public String getFarmSensorCostSummary() {
 		int totalQuantity = 0;

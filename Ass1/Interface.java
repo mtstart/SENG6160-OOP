@@ -209,6 +209,7 @@ public class Interface {
 		String farmName, typeName;
 		Farm getFarm;
 		Sensor farmSensor = null;
+		boolean isSensorExists = false;
 
 		// get name input to locate farm
 		farmName = getInputString("farm name");
@@ -233,17 +234,23 @@ public class Interface {
 		// If no such sensor type exists, the function returns null.
 
 		// check if the sensor type exists in farm1. If not, check if the sensor type exists in farm2
-		if (farm1 != null) {
-			farmSensor = farm1.getFarmSensor(typeName);
-		} else if (farmSensor == null) {
-			if (farm2 != null) {
-				farmSensor = farm2.getFarmSensor(typeName);
-			}
+		// if (farm1 != null) {
+		// 	farmSensor = farm1.getFarmSensor(typeName);
+		// } else if (farmSensor == null) {
+		// 	if (farm2 != null) {
+		// 		farmSensor = farm2.getFarmSensor(typeName);
+		// 	}
+		// }
+		if (farm1 != null && !isSensorExists) {
+			isSensorExists = farm1.checkSensorExists(typeName);
+		}
+		if (farm2 != null && !isSensorExists) {
+			isSensorExists = farm2.checkSensorExists(typeName);
 		}
 		
 		// if the sensor type exists in the farm, adjust the sensor quantity
 		// if not, add a sensor to the farm
-		if (farmSensor != null) {
+		if (isSensorExists) {
 			addExistingSensor(getFarm, typeName);
 		}
 		else {
@@ -428,10 +435,10 @@ public class Interface {
 		// start update the quantity
 		if (farm1 != null) {
 			// get the sensor
-			Sensor farmSensor = farm1.getFarmSensor(typeName);
+			boolean isSensorExists = farm1.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm1.getName().equals(farmName) && farmSensor != null) {
+			if (farm1.getName().equals(farmName) && isSensorExists) {
 				farm1.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
@@ -441,10 +448,10 @@ public class Interface {
 
 		if (farm2 != null) {
 			// get the sensor
-			Sensor farmSensor = farm2.getFarmSensor(typeName);
+			boolean isSensorExists = farm2.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm2.getName().equals(farmName) && farmSensor != null) {
+			if (farm2.getName().equals(farmName) && isSensorExists) {
 				farm2.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
