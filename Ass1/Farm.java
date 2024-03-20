@@ -49,7 +49,7 @@ public class Farm {
 			}
 		}
 		if (sensor3 != null) {
-			if (sensor2.getType().equals(sensorType)) {
+			if (sensor3.getType().equals(sensorType)) {
 				return true;
 			}
 		}
@@ -58,7 +58,7 @@ public class Farm {
 	}
 
 	// get the specific sensor type
-	private Sensor getFarmSensor(String sensorType) {
+	public Sensor getFarmSensor(String sensorType) {
 		Sensor getSensor = null;
 
 		// clean input
@@ -76,7 +76,7 @@ public class Farm {
 			}
 		}
 		if (sensor3 != null) {
-			if (sensor2.getType().equals(sensorType)) {
+			if (sensor3.getType().equals(sensorType)) {
 				getSensor = sensor3;
 			}
 		}
@@ -115,37 +115,15 @@ public class Farm {
 		}
 
 	}
-
-	// This function outputs an message saying there are existing sensor with corresponding price and weight
-	// This message is output for function 3, adding existing sensors.
-	public String getExistingSensorInfo(String sensorType) {
-		String message = "";
-		Sensor getSensor = getFarmSensor(sensorType);
-
-		message = String.format("%s sensor exists, with price $%.1f and weight %.1f \n",
-			getSensor.getType(), getSensor.getPrice(), getSensor.getWeight());
-
-		return message;
-	}
 	
 	// For Function 3: Add existing farm sensor
 	public void addExistingSensor(Farm farm, String sensorType, int addQuantity) {
 
+		// locate the wanted sensor
+		Sensor getSensor = getFarmSensor(sensorType);
 
-		// locate the corresponding sensor
-		if (sensor1 != null) {
-			if (sensor1.getType().equals(sensorType)) {
-				sensor1.adjustSensorQuantity(addQuantity);
-			}
-		} else if (sensor2 != null) {
-			if (sensor2.getType().equals(sensorType)) {
-				sensor2.adjustSensorQuantity(addQuantity);
-			}
-		} else if (sensor3 != null) {
-			if (sensor2.getType().equals(sensorType)) {
-				sensor3.adjustSensorQuantity(addQuantity);
-			}
-		}
+		// update the sensor quantity
+		getSensor.adjustSensorQuantity(addQuantity);
 		
 	}
 

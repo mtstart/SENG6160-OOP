@@ -208,8 +208,8 @@ public class Interface {
 	private void addFarmSensor() {
 		String farmName, typeName;
 		Farm getFarm;
-		Sensor farmSensor = null;
-		boolean isSensorExists = false;
+		Sensor farmSensor1 = null;
+		Sensor farmSensor2 = null;
 
 		// get name input to locate farm
 		farmName = getInputString("farm name");
@@ -232,28 +232,21 @@ public class Interface {
 		// Check if the sensor type exists in any farm
 		// getFarmSensor function returns the sensor type that exists in a farm.
 		// If no such sensor type exists, the function returns null.
-
 		// check if the sensor type exists in farm1. If not, check if the sensor type exists in farm2
-		// if (farm1 != null) {
-		// 	farmSensor = farm1.getFarmSensor(typeName);
-		// } else if (farmSensor == null) {
-		// 	if (farm2 != null) {
-		// 		farmSensor = farm2.getFarmSensor(typeName);
-		// 	}
-		// }
-		if (farm1 != null && !isSensorExists) {
-			isSensorExists = farm1.checkSensorExists(typeName);
+		if (farm1 != null) {
+			farmSensor1 = farm1.getFarmSensor(typeName);
+		} 
+		if (farm2 != null) {
+			farmSensor2 = farm2.getFarmSensor(typeName);
 		}
-		if (farm2 != null && !isSensorExists) {
-			isSensorExists = farm2.checkSensorExists(typeName);
-		}
+
+		Sensor getSensor = farmSensor1 == null ? farmSensor2 : farmSensor1;
 		
 		// if the sensor type exists in the farm, adjust the sensor quantity
 		// if not, add a sensor to the farm
-		if (isSensorExists) {
-			addExistingSensor(getFarm, typeName);
-		}
-		else {
+		if (farmSensor1 != null) {
+			addExistingSensor(getFarm, getSensor);
+		} else {
 			addNewSensor(getFarm, typeName);
 		}
 
@@ -293,20 +286,24 @@ public class Interface {
 		return sensorType;
 	}
 
-	private void addExistingSensor(Farm farm, String sensorType) {
+	private void addExistingSensor(Farm farm, Sensor sensor) {
+		String message = "";
 		int addQuantity = 0;
 
 		// output message that the sensor exists in the farm
-		printMessage(farm.getExistingSensorInfo(sensorType));
+		message = String.format("%s sensor exists, with price $%.1f and weight %.1f \n",
+			sensor.getType(), sensor.getPrice(), sensor.getWeight());
+		printMessage(message);
 
 		// get sensor quantity
 		addQuantity = getInputInt("sensor quantity");
 
 		// adjust sensor quantity
-		farm.addExistingSensor(farm, sensorType, addQuantity);
+		farm.addExistingSensor(farm, sensor.getType(), addQuantity);
+		// TOD: FIX THIS
 
 		// check sensor quantity
-		printMessage(farm.checkSensorQuantity(sensorType, addQuantity));
+		printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
 
 	}
 
