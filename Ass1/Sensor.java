@@ -12,49 +12,49 @@ public class Sensor {
 
 	// Get Type
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
 	// Set Type
 	public void setType(String sensorType) {
-		this.type = sensorType;
+		type = sensorType;
 	}
 
 	// Get Price
 	public double getPrice() {
-		return this.price;
+		return price;
 	}
 
 	// Set Price
 	public void setPrice(double sensorPrice) {
-		this.price = sensorPrice;
+		price = sensorPrice;
 	}
 
 	// Get Weight
 	public double getWeight() {
-		return this.weight;
+		return weight;
 	}
 
 	// Set Weight
 	public void setWeight(double sensorWeight) {
-		this.weight = sensorWeight;
+		weight = sensorWeight;
 	}
 
 	// Get Quantity
 	public int getQuantity() {
-		return this.quantity;
+		return quantity;
 	}
 
 	// Set Quantity
 	public void setQuantity(int sensorQuantity) {
-		this.quantity = sensorQuantity;
+		quantity = sensorQuantity;
 	}
 
 	public Sensor insertSensor(String typeName, Double price, Double weight, int quantity) {
-		this.setType(typeName);
-		this.setPrice(price);
-		this.setWeight(weight);
-		this.setQuantity(quantity);
+		setType(typeName);
+		setPrice(price);
+		setWeight(weight);
+		setQuantity(quantity);
 
 		return this;
 	}
@@ -65,11 +65,11 @@ public class Sensor {
 
 	public Sensor adjustSensorQuantity(int updateQuantity) {
 		// set new quantitiy
-		int oriQuantity = this.getQuantity();
+		int oriQuantity = getQuantity();
 		int newQuantity = oriQuantity + updateQuantity;
 
 		// update quantity
-		this.setQuantity(newQuantity);
+		setQuantity(newQuantity);
 
 		return this;
 	}
@@ -78,13 +78,13 @@ public class Sensor {
 		String message = "";
 
 		message += String.format("%s sensor has price $%.1f, weight %.1f kg, and quantity %d. \n",
-				this.getType(), this.getPrice(), this.getWeight(), this.getQuantity());
+				getType(), getPrice(), getWeight(), getQuantity());
 
 		return message;
 	}
 
 	public double getSensorCost() {
-		return this.getQuantity() * this.getPrice();
+		return getQuantity() * getPrice();
 	}
 
 	

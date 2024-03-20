@@ -11,7 +11,7 @@ public class Farm {
 
 	// getName function gets the name of the given Farm
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	// Feature 1: Add Farm
@@ -19,16 +19,16 @@ public class Farm {
 		String name = "";
 
 		// set the farm name
-		name = this.setFarmName(farmName, lastName);
+		name = setFarmName(farmName, lastName);
 
 		return name;
 	}
 
 	private String setFarmName(String farmName, String lastName) {
 
-		this.name = farmName + lastName;
+		name = farmName + lastName;
 
-		return this.name;
+		return name;
 	}
 
 	// check if sensor type exists in any farm
@@ -39,19 +39,19 @@ public class Farm {
 		typeName = typeName.toLowerCase().trim();
 
 		// check 3 sensors one by one to see if the sensors exists
-		if (this.sensor1 != null) {
-			if (this.sensor1.getType().equals(typeName)) {
-				getSensor = this.sensor1;
+		if (sensor1 != null) {
+			if (sensor1.getType().equals(typeName)) {
+				getSensor = sensor1;
 			}
 		} 
-		if (this.sensor2 != null) {
-			if (this.sensor2.getType().equals(typeName)) {
-				getSensor = this.sensor2;
+		if (sensor2 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				getSensor = sensor2;
 			}
 		}
-		if (this.sensor3 != null) {
-			if (this.sensor2.getType().equals(typeName)) {
-				getSensor = this.sensor3;
+		if (sensor3 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				getSensor = sensor3;
 			}
 		}
 
@@ -61,13 +61,13 @@ public class Farm {
 	public int countFarmSensorType() {
 		int counter = 0;
 
-		if (this.sensor1 != null) {
+		if (sensor1 != null) {
 			counter += 1;
 		}
-		if (this.sensor2 != null) {
+		if (sensor2 != null) {
 			counter += 1;
 		}
-		if (this.sensor3 != null) {
+		if (sensor3 != null) {
 			counter += 1;
 		}
 
@@ -77,40 +77,38 @@ public class Farm {
 	// Function 3: Add new farm sensor
 	public Farm addSensor(Farm farm, String typeName, Double price, Double weight, int quantity) {
 
-		if (this.sensor1 == null) {
-			this.sensor1 = new Sensor();
-			this.sensor1.insertSensor(typeName, price, weight, quantity);
-		} else if (this.sensor2 == null) {
-			this.sensor2 = new Sensor();
-			this.sensor2.insertSensor(typeName, price, weight, quantity);
-		} else if (this.sensor3 == null) {
-			this.sensor3 = new Sensor();
-			this.sensor3.insertSensor(typeName, price, weight, quantity);
+		if (sensor1 == null) {
+			sensor1 = new Sensor();
+			sensor1.insertSensor(typeName, price, weight, quantity);
+		} else if (sensor2 == null) {
+			sensor2 = new Sensor();
+			sensor2.insertSensor(typeName, price, weight, quantity);
+		} else if (sensor3 == null) {
+			sensor3 = new Sensor();
+			sensor3.insertSensor(typeName, price, weight, quantity);
 		}
 		
 		return this;
 	}
 
 	// Function 3: Add existing farm sensor
-	public Farm updateSensorQuantity(Sensor sensor, int updateQuantity) {
+	public void updateSensorQuantity(Sensor sensor, int updateQuantity) {
 
 		// locate the corresponding sensor
-		if (this.sensor1 != null) {
-			if (this.sensor1.getType().equals(sensor.getType())) {
-				this.sensor1 = this.sensor1.adjustSensorQuantity(updateQuantity);
+		if (sensor1 != null) {
+			if (sensor1.getType().equals(sensor.getType())) {
+				sensor1.adjustSensorQuantity(updateQuantity);
 			}
-		} else if (this.sensor2 != null) {
-			if (this.sensor2.getType().equals(sensor.getType())) {
-				this.sensor2 = this.sensor2.adjustSensorQuantity(updateQuantity);
+		} else if (sensor2 != null) {
+			if (sensor2.getType().equals(sensor.getType())) {
+				sensor2.adjustSensorQuantity(updateQuantity);
 			}
-		} else if (this.sensor3 != null) {
-			if (this.sensor2.getType().equals(sensor.getType())) {
-				this.sensor3 = this.sensor3.adjustSensorQuantity(updateQuantity);
+		} else if (sensor3 != null) {
+			if (sensor2.getType().equals(sensor.getType())) {
+				sensor3.adjustSensorQuantity(updateQuantity);
 			}
 		}
 
-
-		return this;
 	}
 
 	// Function 3: Add existing farm sensor
@@ -128,14 +126,14 @@ public class Farm {
 		// for adding sensor quantity
 		if (updateQuantity > 0) {
 			message = String.format("%d %s sensor(s) is added in %s.",
-					updateQuantity, typeName, this.name);
+					updateQuantity, typeName, name);
 		} else {
 			message = String.format("%d %s sensor(s) is removed in %s. \n",
-				Math.abs(updateQuantity), typeName, this.name);
+				Math.abs(updateQuantity), typeName, name);
 
 			// for reducing sensor quantity
-			if (this.getSensorQuantitySum(typeName) == 0) {
-				this.removeSensor(typeName);
+			if (getSensorQuantitySum(typeName) == 0) {
+				removeSensor(typeName);
 
 				message += "As the sensor quantity is zero, " + typeName + " sensor is removed.";
 			}
@@ -147,19 +145,19 @@ public class Farm {
 	// Function 4: Remove farm sensor if quantity is 0
 	private void removeSensor(String typeName) {
 		
-		if (this.sensor1 != null) {
-			if (this.sensor1.getType().equals(typeName)) {
-				this.sensor1 = this.sensor1.removeSensor();
+		if (sensor1 != null) {
+			if (sensor1.getType().equals(typeName)) {
+				sensor1.removeSensor();
 			}
 		} 
-		if (this.sensor2 != null) {
-			if (this.sensor2.getType().equals(typeName)) {
-				this.sensor2 = this.sensor2.removeSensor();
+		if (sensor2 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				sensor2.removeSensor();
 			}
 		}
-		if (this.sensor3 != null) {
-			if (this.sensor2.getType().equals(typeName)) {
-				this.sensor3 = this.sensor3.removeSensor();
+		if (sensor3 != null) {
+			if (sensor2.getType().equals(typeName)) {
+				sensor3.removeSensor();
 			}
 		}
 
@@ -176,19 +174,19 @@ public class Farm {
 		// if typeName equals to ALL, get the total quantity of all sensor type
 		// if typeName equals to the specific type (e.g. Soil), only the quantity of the type will be added.
 
-		if (this.sensor1 != null) {
-			if (typeName.equals("ALL") || this.sensor1.getType().equals(typeName)) {
-				counter += this.sensor1.getQuantity();
+		if (sensor1 != null) {
+			if (typeName.equals("ALL") || sensor1.getType().equals(typeName)) {
+				counter += sensor1.getQuantity();
 			}
 		} 
-		if (this.sensor2 != null) {
-			if (typeName.equals("ALL") || this.sensor2.getType().equals(typeName)) {
-				counter += this.sensor2.getQuantity();
+		if (sensor2 != null) {
+			if (typeName.equals("ALL") || sensor2.getType().equals(typeName)) {
+				counter += sensor2.getQuantity();
 			}
 		} 
-		if (this.sensor3 != null) {
-			if (typeName.equals("ALL") || this.sensor3.getType().equals(typeName)) {
-				counter += this.sensor3.getQuantity();
+		if (sensor3 != null) {
+			if (typeName.equals("ALL") || sensor3.getType().equals(typeName)) {
+				counter += sensor3.getQuantity();
 			}
 		}
 
@@ -200,22 +198,22 @@ public class Farm {
 		String message = "";
 
 		// check if there any sensors
-		if (this.countFarmSensorType() > 0) {
-			message += this.getName() + " has the following sensor(s). \n";
+		if (countFarmSensorType() > 0) {
+			message += getName() + " has the following sensor(s). \n";
 		} else {
 			message = "No sensors at farm.";
 			return message;
 		}
 
 		// get sensor details from sensor
-		if (this.sensor1 != null) {
-			message += this.sensor1.getSensorDetailsString();
+		if (sensor1 != null) {
+			message += sensor1.getSensorDetailsString();
 		}
-		if (this.sensor2 != null) {
-			message += this.sensor2.getSensorDetailsString();
+		if (sensor2 != null) {
+			message += sensor2.getSensorDetailsString();
 		}
-		if (this.sensor3 != null) {
-			message += this.sensor3.getSensorDetailsString();
+		if (sensor3 != null) {
+			message += sensor3.getSensorDetailsString();
 		}
 
 		// output message
@@ -230,22 +228,22 @@ public class Farm {
 		double totalCost = 0.0;
 		String message = "";
 
-		if (this.sensor1 != null) {
-			totalQuantity += this.sensor1.getQuantity();
-			totalCost += this.sensor1.getSensorCost();
+		if (sensor1 != null) {
+			totalQuantity += sensor1.getQuantity();
+			totalCost += sensor1.getSensorCost();
 		}
-		if (this.sensor2 != null) {
-			totalQuantity += this.sensor2.getQuantity();
-			totalCost += this.sensor2.getSensorCost();
+		if (sensor2 != null) {
+			totalQuantity += sensor2.getQuantity();
+			totalCost += sensor2.getSensorCost();
 		}
-		if (this.sensor3 != null) {
-			totalQuantity += this.sensor3.getQuantity();
-			totalCost += this.sensor3.getSensorCost();
+		if (sensor3 != null) {
+			totalQuantity += sensor3.getQuantity();
+			totalCost += sensor3.getSensorCost();
 		}
 
 		// display summary
 		message = String.format("%s has %d sensors of value $%.1f \n",
-				this.getName(), totalQuantity, totalCost);
+				getName(), totalQuantity, totalCost);
 
 		return message;
 	}

@@ -4,8 +4,6 @@ import javax.swing.*;
 
 public class Interface {
 
-	// TODO: ask need to handle "" string input/ press enter will exit function?
-
 	// Classes.
 	private Farm farm1, farm2;
 
@@ -300,7 +298,7 @@ public class Interface {
 		addQuantity = getInputInt("sensor quantity");
 
 		// adjust sensor quantity
-		farm = farm.updateSensorQuantity(sensor, addQuantity);
+		farm.updateSensorQuantity(sensor, addQuantity);
 
 		// check sensor quantity
 		printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
@@ -436,7 +434,7 @@ public class Interface {
 
 			// reduce quantity
 			if (farm1.getName().equals(farmName) && farmSensor != null) {
-				farm1 = farm1.updateSensorQuantity(farmSensor, removeQuantity);
+				farm1.updateSensorQuantity(farmSensor, removeQuantity);
 
 				// check sensor quantity
 				printMessage(farm1.checkSensorQuantity(typeName, removeQuantity));
@@ -449,7 +447,7 @@ public class Interface {
 
 			// reduce quantity
 			if (farm2.getName().equals(farmName) && farmSensor != null) {
-				farm2 = farm2.updateSensorQuantity(farmSensor, removeQuantity);
+				farm2.updateSensorQuantity(farmSensor, removeQuantity);
 
 				// check sensor quantity
 				printMessage(farm2.checkSensorQuantity(typeName, removeQuantity));
