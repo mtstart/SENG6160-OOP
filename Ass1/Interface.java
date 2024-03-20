@@ -129,13 +129,13 @@ public class Interface {
 
 		// check if farm name is duplicated
 		if (farm1 != null) {
-			if (farm1.getName().equals(lastName)) {
+			if (farm1.getFarmName().equals(lastName)) {
 				printMessage(lastName + " farm name is duplicated.");
 				return;
 			}
 		}
 		if (farm2 != null) {
-			if (farm2.getName().equals(lastName)) {
+			if (farm2.getFarmName().equals(lastName)) {
 				printMessage(lastName + " farm name is duplicated.");
 				return;
 			}
@@ -165,12 +165,12 @@ public class Interface {
 
 		// check if the name belongs to farm1, farm2, or not found
 		if (farm1 != null) {
-			if (farm1.getName().equals(farmName)) {
+			if (farm1.getFarmName().equals(farmName)) {
 				getFarm = farm1;
 			}
 		}
 		if (farm2 != null) {
-			if (farm2.getName().equals(farmName)) {
+			if (farm2.getFarmName().equals(farmName)) {
 				getFarm = farm2;
 			}
 		}
@@ -190,13 +190,13 @@ public class Interface {
 
 		// check if the name belongs to farm1, farm2, or not found
 		if (farm1 != null) {
-			if (farm1.getName().equals(farmName)) {
+			if (farm1.getFarmName().equals(farmName)) {
 				farm1 = null;
 				printMessage(farmName + " has been removed.");
 			}
 		}
 		if (farm2 != null) {
-			if (farm2.getName().equals(farmName)) {
+			if (farm2.getFarmName().equals(farmName)) {
 				farm2 = null;
 				printMessage(farmName + " has been removed.");
 			}
@@ -312,14 +312,14 @@ public class Interface {
 
 	// get all required inputs from user for adding sensors
 	// get farm name, price, weight, quantity
-	private void addNewSensor(Farm farm, String typeName) {
+	private void addNewSensor(Farm farm, String sensorType) {
 		Double price = 0.0;
 		Double weight = 0.0;
 		int quantity = 0;
 
 		// check if the farm already holds 3 different types of sensors
 		if (farm.countFarmSensorType() == 3) {
-			printMessage(farm.getName() + " already holds 3 different types of sensors.");
+			printMessage(farm.getFarmName() + " already holds 3 different types of sensors.");
 			return;
 		}
 
@@ -333,11 +333,11 @@ public class Interface {
 		quantity = getInputInt("sensor quantity");
 
 		// perform the function in Farm class
-		farm.addNewSensor(farm, typeName, price, weight, quantity);
+		farm.addNewSensor(farm, sensorType, price, weight, quantity);
 
 		// output message that sensors are added
 		String message = String.format("%s sensor is added with price $%.1f, weight %.1f kg, and quantity %d.", 
-			typeName, price, weight, quantity );
+			sensorType, price, weight, quantity );
 		printMessage(message);
 	}
 
@@ -438,7 +438,7 @@ public class Interface {
 			boolean isSensorExists = farm1.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm1.getName().equals(farmName) && isSensorExists) {
+			if (farm1.getFarmName().equals(farmName) && isSensorExists) {
 				farm1.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
@@ -451,7 +451,7 @@ public class Interface {
 			boolean isSensorExists = farm2.checkSensorExists(typeName);
 
 			// reduce quantity
-			if (farm2.getName().equals(farmName) && isSensorExists) {
+			if (farm2.getFarmName().equals(farmName) && isSensorExists) {
 				farm2.updateSensorQuantity(typeName, removeQuantity);
 
 				// check sensor quantity
@@ -475,13 +475,13 @@ public class Interface {
 		if (farm1 != null) {
 			// getSensorQuantitySum function calculates the sum of the sensor quantity
 			// parameter "ALL" is put to get the sum for all sensor types
-			message += String.format("%s has %d sensor(s). \n", farm1.getName(), farm1.countFarmSensorType());
+			message += String.format("%s has %d sensor(s). \n", farm1.getFarmName(), farm1.countFarmSensorType());
 		}
 
 		if (farm2 != null) {
 			// getSensorQuantitySum function calculates the sum of the sensor quantity
 			// parameter "ALL" is put to get the sum for all sensor types
-			message += String.format("%s has %d sensor(s).", farm2.getName(), farm2.countFarmSensorType());
+			message += String.format("%s has %d sensor(s).", farm2.getFarmName(), farm2.countFarmSensorType());
 		}
 
 		printMessage(message);
@@ -500,7 +500,7 @@ public class Interface {
 		}
 		
 		if (farm1 != null) {
-			if (farm1.getName().equals(farmName)) {
+			if (farm1.getFarmName().equals(farmName)) {
 				
 				// check if sensors exist
 				message += farm1.listSensorDetails();
@@ -508,7 +508,7 @@ public class Interface {
 			}
 		} 
 		if (farm2 != null) {
-			if (farm2.getName().equals(farmName)) {
+			if (farm2.getFarmName().equals(farmName)) {
 				message += farm2.listSensorDetails();
 				printMessage(message);
 			}
@@ -534,7 +534,7 @@ public class Interface {
 			// only output when the farm has the sensor
 			if (quantity > 0) {
 				message += String.format("%s sensors is at %s with quantity %d. \n",
-						typeName, farm1.getName(), farm1.getSensorQuantitySum(typeName));
+						typeName, farm1.getFarmName(), farm1.getSensorQuantitySum(typeName));
 			}
 		}
 		if (farm2 != null) {
@@ -544,7 +544,7 @@ public class Interface {
 			// only output when the farm has the sensor
 			if (quantity > 0) {
 				message += String.format("%s sensors is at %s with quantity %d. \n",
-						typeName, farm2.getName(), farm2.getSensorQuantitySum(typeName));
+						typeName, farm2.getFarmName(), farm2.getSensorQuantitySum(typeName));
 			}
 		}
 		
@@ -557,8 +557,7 @@ public class Interface {
 		printMessage(message);
 
 	}
-	
-	
+		
 	// Function 8: Display total number of sensors in a farm and total cost
 	private void listSensorSummary() {
 		String message = "";
@@ -574,13 +573,13 @@ public class Interface {
 		
 		// start calculate total sensor cost of the farm
 		if (farm1 != null) {
-			if (farm1.getName().equals(farmName)) {
+			if (farm1.getFarmName().equals(farmName)) {
 				message = farm1.getFarmSensorCostSummary();
 				printMessage(message);
 			}
 		}
 		if (farm2 != null) {
-			if (farm2.getName().equals(farmName)) {
+			if (farm2.getFarmName().equals(farmName)) {
 				message = farm2.getFarmSensorCostSummary();			
 				printMessage(message);
 			}

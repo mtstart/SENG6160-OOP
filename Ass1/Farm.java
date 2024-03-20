@@ -10,7 +10,7 @@ public class Farm {
 	private Sensor sensor1, sensor2, sensor3;
 
 	// getName function gets the name of the given Farm
-	public String getName() {
+	public String getFarmName() {
 		return name;
 	}
 
@@ -32,24 +32,24 @@ public class Farm {
 	}
 
 	// check if sensor type exists in any farm
-	public boolean checkSensorExists(String typeName) {
+	public boolean checkSensorExists(String sensorType) {
 
 		// clean input
-		typeName = typeName.toLowerCase().trim();
+		sensorType = sensorType.toLowerCase().trim();
 
 		// check 3 sensors one by one to see if the sensors exists
 		if (sensor1 != null) {
-			if (sensor1.getType().equals(typeName)) {
+			if (sensor1.getType().equals(sensorType)) {
 				return true;
 			}
 		} 
 		if (sensor2 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				return true;
 			}
 		}
 		if (sensor3 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				return true;
 			}
 		}
@@ -58,25 +58,25 @@ public class Farm {
 	}
 
 	// get the specific sensor type
-	private Sensor getFarmSensor(String typeName) {
+	private Sensor getFarmSensor(String sensorType) {
 		Sensor getSensor = null;
 
 		// clean input
-		typeName = typeName.toLowerCase().trim();
+		sensorType = sensorType.toLowerCase().trim();
 
 		// check 3 sensors one by one to see if the sensors exists
 		if (sensor1 != null) {
-			if (sensor1.getType().equals(typeName)) {
+			if (sensor1.getType().equals(sensorType)) {
 				getSensor = sensor1;
 			}
 		} 
 		if (sensor2 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				getSensor = sensor2;
 			}
 		}
 		if (sensor3 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				getSensor = sensor3;
 			}
 		}
@@ -101,7 +101,7 @@ public class Farm {
 	}
 
 	// For Function 3: Add new farm sensor
-	public void addNewSensor(Farm farm, String sensorType, Double price, Double weight, int quantity) {
+	public void addNewSensor(Farm farm, String sensorType, double price, double weight, int quantity) {
 
 		if (sensor1 == null) {
 			sensor1 = new Sensor();
@@ -174,7 +174,7 @@ public class Farm {
 
 	// Function 3: Add existing farm sensor
 	// Function 4: Remove Farm Sensor
-	public String checkSensorQuantity(String typeName, int updateQuantity) {
+	public String checkSensorQuantity(String sensorType, int updateQuantity) {
 		String message = "";
 		// for adding sensor quantity, 
 		// output an message that sensors are added
@@ -186,16 +186,16 @@ public class Farm {
 		// for adding sensor quantity
 		if (updateQuantity > 0) {
 			message = String.format("%d %s sensor(s) is added in %s.",
-					updateQuantity, typeName, name);
+					updateQuantity, sensorType, name);
 		} else {
 			message = String.format("%d %s sensor(s) is removed in %s. \n",
-				Math.abs(updateQuantity), typeName, name);
+				Math.abs(updateQuantity), sensorType, name);
 
 			// for reducing sensor quantity
-			if (getSensorQuantitySum(typeName) == 0) {
-				removeSensor(typeName);
+			if (getSensorQuantitySum(sensorType) == 0) {
+				removeSensor(sensorType);
 
-				message += "As the sensor quantity is zero, " + typeName + " sensor is removed.";
+				message += "As the sensor quantity is zero, " + sensorType + " sensor is removed.";
 			}
 
 		}
@@ -203,20 +203,20 @@ public class Farm {
 	}
 
 	// For Function 4: Remove farm sensor if quantity is 0
-	private void removeSensor(String typeName) {
+	private void removeSensor(String sensorType) {
 		
 		if (sensor1 != null) {
-			if (sensor1.getType().equals(typeName)) {
+			if (sensor1.getType().equals(sensorType)) {
 				sensor1 = null;
 			}
 		} 
 		if (sensor2 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				sensor2 = null;
 			}
 		}
 		if (sensor3 != null) {
-			if (sensor2.getType().equals(typeName)) {
+			if (sensor2.getType().equals(sensorType)) {
 				sensor3 = null;
 			}
 		}
@@ -227,24 +227,24 @@ public class Farm {
 	// This function calculates the sum of the specific sensor's quantity
 	// For Function 5: List total number of sensors of the farm
 	// For Function 7: Display Sensor Details, List sensor quantity of the specific farm
-	public int getSensorQuantitySum(String typeName) {
+	public int getSensorQuantitySum(String sensorType) {
 		int counter = 0;
 
 		// if typeName equals to ALL, get the total quantity of all sensor type
 		// if typeName equals to the specific type (e.g. Soil), only the quantity of the type will be added.
 
 		if (sensor1 != null) {
-			if (typeName.equals("ALL") || sensor1.getType().equals(typeName)) {
+			if (sensorType.equals("ALL") || sensor1.getType().equals(sensorType)) {
 				counter += sensor1.getQuantity();
 			}
 		} 
 		if (sensor2 != null) {
-			if (typeName.equals("ALL") || sensor2.getType().equals(typeName)) {
+			if (sensorType.equals("ALL") || sensor2.getType().equals(sensorType)) {
 				counter += sensor2.getQuantity();
 			}
 		} 
 		if (sensor3 != null) {
-			if (typeName.equals("ALL") || sensor3.getType().equals(typeName)) {
+			if (sensorType.equals("ALL") || sensor3.getType().equals(sensorType)) {
 				counter += sensor3.getQuantity();
 			}
 		}
@@ -258,7 +258,7 @@ public class Farm {
 
 		// check if there any sensors
 		if (countFarmSensorType() > 0) {
-			message += getName() + " has the following sensor(s). \n";
+			message += getFarmName() + " has the following sensor(s). \n";
 		} else {
 			message = "No sensors at farm.";
 			return message;
@@ -302,7 +302,7 @@ public class Farm {
 
 		// display summary
 		message = String.format("%s has %d sensors of value $%.1f \n",
-				getName(), totalQuantity, totalCost);
+				getFarmName(), totalQuantity, totalCost);
 
 		return message;
 	}

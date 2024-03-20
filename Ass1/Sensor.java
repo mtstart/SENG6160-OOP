@@ -1,9 +1,6 @@
 /*	Chi Lam Tsang */
 
-import java.util.*;
-
 public class Sensor {
-	Scanner console = new Scanner(System.in);
 
 	private String type = "";	// e.g.  Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH
 	private double price = 0;
@@ -50,8 +47,8 @@ public class Sensor {
 		quantity = sensorQuantity;
 	}
 
-	public void insertSensor(String typeName, Double price, Double weight, int quantity) {
-		setType(typeName);
+	public void insertSensor(String sensorType, double price, double weight, int quantity) {
+		setType(sensorType);
 		setPrice(price);
 		setWeight(weight);
 		setQuantity(quantity);
