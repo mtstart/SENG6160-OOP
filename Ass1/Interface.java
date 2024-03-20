@@ -17,13 +17,13 @@ public class Interface {
 
 	public void run() {
 		// Welcome message
-		this.printMessage("Welcome to Smart Farm!");
+		printMessage("Welcome to Smart Farm!");
 
 		// input = JOptionPane.showInputDialog(str);
 		// OptionPaneUI.showMessageDialog(null,str,"message",JOptionPane.INFORMATION_MESSAGE);
 
 		// show interface
-		this.showMenu();
+		showMenu();
 	}
 
 	private void showMenu() {
@@ -43,29 +43,29 @@ public class Interface {
 		message += "Please enter a function number (1-9)";
 
 		// ask for function input
-		action = this.getInputInt(message);
+		action = getInputInt(message);
 
 		// there are 8 functions, check if the input is from 1-8
 		while (action <= 0 || action > 9) {
-			action = this.getInputInt(message);
+			action = getInputInt(message);
 			
 			// check if exit 
 			if (action == 9) {
-				this.printMessage("Goodbye, thanks");
+				printMessage("Goodbye, thanks");
 				return;
 			}
 		}
 		
 		// check if exit 
 		if (action == 9) {
-			this.printMessage("Goodbye, thanks");
+			printMessage("Goodbye, thanks");
 			return;
 		} else {
 			// perform the function
-			this.performFarmAction(action);
+			performFarmAction(action);
 	
 			// display menu again after each action is completed
-			this.showMenu();
+			showMenu();
 		}
 	}
 
@@ -85,31 +85,31 @@ public class Interface {
 	private void performFarmAction(int action) {
 		switch (action) {
 			case 1:
-				this.addFarm();
+				addFarm();
 				break;
 			case 2:
-				this.removeFarm();
+				removeFarm();
 				break;
 			case 3:
-				this.addFarmSensor();
+				addFarmSensor();
 				break;
 			case 4:
-				this.reduceFarmSensorQuantity();
+				reduceFarmSensorQuantity();
 				break;
 			case 5:
-				this.listAllFarms();
+				listAllFarms();
 				break;
 			case 6:
-				this.listFarmSensors();
+				listFarmSensors();
 				break;
 			case 7:
-				this.listFarmSensorQuantity();
+				listFarmSensorQuantity();
 				break;
 			case 8:
-				this.listSensorSummary();
+				listSensorSummary();
 				break;
 			default:
-				this.printMessage("We don't have this function, please enter again.");
+				printMessage("We don't have this function, please enter again.");
 				break;
 		}
 		return;
@@ -122,39 +122,39 @@ public class Interface {
 
 		// check if all farms are occupied
 		// if both farms are occupied, show error message
-		if (this.farm1 != null && this.farm2 != null) {
-			this.printMessage("New farm cannot be created, maximum 2 farms.");
+		if (farm1 != null && farm2 != null) {
+			printMessage("New farm cannot be created, maximum 2 farms.");
 			return;
 		}
 
-		lastName = this.getInputString("last name");
+		lastName = getInputString("last name");
 
 		// check if farm name is duplicated
-		if (this.farm1 != null) {
-			if (this.farm1.getName().equals(lastName)) {
-				this.printMessage(lastName + " farm name is duplicated.");
+		if (farm1 != null) {
+			if (farm1.getName().equals(lastName)) {
+				printMessage(lastName + " farm name is duplicated.");
 				return;
 			}
 		}
-		if (this.farm2 != null) {
-			if (this.farm2.getName().equals(lastName)) {
-				this.printMessage(lastName + " farm name is duplicated.");
+		if (farm2 != null) {
+			if (farm2.getName().equals(lastName)) {
+				printMessage(lastName + " farm name is duplicated.");
 				return;
 			}
 		}
 
 		// validate farms
-		if (this.farm1 == null) { // validate if farm1 is null, if null, create farm1
-			this.farm1 = new Farm();
-			farmName = this.farm1.addFarm("farm1", lastName);
+		if (farm1 == null) { // validate if farm1 is null, if null, create farm1
+			farm1 = new Farm();
+			farmName = farm1.addFarm("farm1", lastName);
 
-			this.printMessage(farmName + " is created.");
+			printMessage(farmName + " is created.");
 
-		} else if (this.farm2 == null) { // validate if farm2 is null, if null, create farm2
-			this.farm2 = new Farm();
-			farmName = this.farm2.addFarm("farm2", lastName);
+		} else if (farm2 == null) { // validate if farm2 is null, if null, create farm2
+			farm2 = new Farm();
+			farmName = farm2.addFarm("farm2", lastName);
 
-			this.printMessage(farmName + " is created.");
+			printMessage(farmName + " is created.");
 		}
 
 	}
@@ -166,14 +166,14 @@ public class Interface {
 		Farm getFarm = null;
 
 		// check if the name belongs to farm1, farm2, or not found
-		if (this.farm1 != null) {
-			if (this.farm1.getName().equals(farmName)) {
-				getFarm = this.farm1;
+		if (farm1 != null) {
+			if (farm1.getName().equals(farmName)) {
+				getFarm = farm1;
 			}
 		}
-		if (this.farm2 != null) {
-			if (this.farm2.getName().equals(farmName)) {
-				getFarm = this.farm2;
+		if (farm2 != null) {
+			if (farm2.getName().equals(farmName)) {
+				getFarm = farm2;
 			}
 		}
 
@@ -182,25 +182,25 @@ public class Interface {
 
 	// Function 2: Remove Farm
 	private void removeFarm() {
-		String farmName = this.getInputString("farm name");
+		String farmName = getInputString("farm name");
 
 		// check if the farm name belongs to any farm
-		if (this.checkFarmExist(farmName) == null) {
-			this.printMessage("The farm does not exist.");
+		if (checkFarmExist(farmName) == null) {
+			printMessage("The farm does not exist.");
 			return;
 		}
 
 		// check if the name belongs to farm1, farm2, or not found
-		if (this.farm1 != null) {
-			if (this.farm1.getName().equals(farmName)) {
-				this.farm1 = null;
-				this.printMessage(farmName + " has been removed.");
+		if (farm1 != null) {
+			if (farm1.getName().equals(farmName)) {
+				farm1 = null;
+				printMessage(farmName + " has been removed.");
 			}
 		}
-		if (this.farm2 != null) {
-			if (this.farm2.getName().equals(farmName)) {
-				this.farm2 = null;
-				this.printMessage(farmName + " has been removed.");
+		if (farm2 != null) {
+			if (farm2.getName().equals(farmName)) {
+				farm2 = null;
+				printMessage(farmName + " has been removed.");
 			}
 		}
 
@@ -213,20 +213,20 @@ public class Interface {
 		Sensor farmSensor = null;
 
 		// get name input to locate farm
-		farmName = this.getInputString("farm name");
-		getFarm = this.checkFarmExist(farmName);
+		farmName = getInputString("farm name");
+		getFarm = checkFarmExist(farmName);
 
 		// check if farm exists
 		if (getFarm == null) {
-			this.printMessage(farmName + " does not exist.");
+			printMessage(farmName + " does not exist.");
 			return;
 		}
 
 		// get sensor type
-		typeName = this.getInputString("sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH)");
+		typeName = getInputString("sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH)");
 
 		// check if the sensor types are valid, e.g. Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH
-		while (this.checkSensorType(typeName).equals("")) {
+		while (checkSensorType(typeName).equals("")) {
 			typeName = JOptionPane.showInputDialog("Please enter a valid sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH): ");
 		}
 
@@ -246,10 +246,10 @@ public class Interface {
 		// if the sensor type exists in the farm, adjust the sensor quantity
 		// if not, add a sensor to the farm
 		if (farmSensor != null) {
-			this.addExistingSensor(getFarm, farmSensor);
+			addExistingSensor(getFarm, farmSensor);
 		}
 		else {
-			this.addNewSensor(getFarm, typeName);
+			addNewSensor(getFarm, typeName);
 		}
 
 	}
@@ -294,16 +294,16 @@ public class Interface {
 		// output message that the sensor exists in the farm
 		String message = String.format("%s sensor exists, with price $%.1f and weight %.1f \n",
 				sensor.getType(), sensor.getPrice(), sensor.getWeight());
-		this.printMessage(message);
+		printMessage(message);
 
 		// get sensor quantity
-		addQuantity = this.getInputInt("sensor quantity");
+		addQuantity = getInputInt("sensor quantity");
 
 		// adjust sensor quantity
 		farm = farm.updateSensorQuantity(sensor, addQuantity);
 
 		// check sensor quantity
-		this.printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
+		printMessage(farm.checkSensorQuantity(sensor.getType(), addQuantity));
 
 	}
 
@@ -316,18 +316,18 @@ public class Interface {
 
 		// check if the farm already holds 3 different types of sensors
 		if (farm.countFarmSensorType() == 3) {
-			this.printMessage(farm.getName() + " already holds 3 different types of sensors.");
+			printMessage(farm.getName() + " already holds 3 different types of sensors.");
 			return;
 		}
 
 		// get sensor price
-		price = this.getInputDouble("sensor price");
+		price = getInputDouble("sensor price");
 
 		// get sensor weight
-		weight = this.getInputDouble("sensor weight");
+		weight = getInputDouble("sensor weight");
 
 		// get sensor quantity
-		quantity = this.getInputInt("sensor quantity");
+		quantity = getInputInt("sensor quantity");
 
 		// perform the function in Farm class
 		farm.addSensor(farm, typeName, price, weight, quantity);
@@ -335,7 +335,7 @@ public class Interface {
 		// output message that sensors are added
 		String message = String.format("%s sensor is added with price $%.1f, weight %.1f kg, and quantity %d.", 
 			typeName, price, weight, quantity );
-		this.printMessage(message);
+		printMessage(message);
 	}
 
 	// This is a reusable function to help get an input in double type
@@ -416,43 +416,43 @@ public class Interface {
 		// Sensor farmSensor = null;
 
 		// get name input to locate farm
-		farmName = this.getInputString("farm name");
-		getFarm = this.checkFarmExist(farmName);
+		farmName = getInputString("farm name");
+		getFarm = checkFarmExist(farmName);
 
 		// check if farm exists
 		if (getFarm == null) {
-			this.printMessage(farmName + " does not exist.");
+			printMessage(farmName + " does not exist.");
 			return;
 		}
 
 		// get sensor type
 		message = "sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH)";
-		typeName = this.getInputString(message);
+		typeName = getInputString(message);
 
 		// start update the quantity
-		if (this.farm1 != null) {
+		if (farm1 != null) {
 			// get the sensor
-			Sensor farmSensor = this.farm1.getFarmSensor(typeName);
+			Sensor farmSensor = farm1.getFarmSensor(typeName);
 
 			// reduce quantity
-			if (this.farm1.getName().equals(farmName) && farmSensor != null) {
-				this.farm1 = this.farm1.updateSensorQuantity(farmSensor, removeQuantity);
+			if (farm1.getName().equals(farmName) && farmSensor != null) {
+				farm1 = farm1.updateSensorQuantity(farmSensor, removeQuantity);
 
 				// check sensor quantity
-				this.printMessage(this.farm1.checkSensorQuantity(typeName, removeQuantity));
+				printMessage(farm1.checkSensorQuantity(typeName, removeQuantity));
 			}
 		}
 
-		if (this.farm2 != null) {
+		if (farm2 != null) {
 			// get the sensor
-			Sensor farmSensor = this.farm2.getFarmSensor(typeName);
+			Sensor farmSensor = farm2.getFarmSensor(typeName);
 
 			// reduce quantity
-			if (this.farm2.getName().equals(farmName) && farmSensor != null) {
-				this.farm2 = this.farm2.updateSensorQuantity(farmSensor, removeQuantity);
+			if (farm2.getName().equals(farmName) && farmSensor != null) {
+				farm2 = farm2.updateSensorQuantity(farmSensor, removeQuantity);
 
 				// check sensor quantity
-				this.printMessage(this.farm2.checkSensorQuantity(typeName, removeQuantity));
+				printMessage(farm2.checkSensorQuantity(typeName, removeQuantity));
 			}
 		}
 
@@ -463,51 +463,51 @@ public class Interface {
 		String message = "";
 
 		// check if any farm exists
-		if (this.farm1 == null && this.farm2 == null) {
+		if (farm1 == null && farm2 == null) {
 			message = "No farm exists";
-			this.printMessage(message);
+			printMessage(message);
 			return;
 		}
 
-		if (this.farm1 != null) {
+		if (farm1 != null) {
 			// getSensorQuantitySum function calculates the sum of the sensor quantity
 			// parameter "ALL" is put to get the sum for all sensor types
-			message += String.format("%s has %d sensor(s). \n", this.farm1.getName(), this.farm1.countFarmSensorType());
+			message += String.format("%s has %d sensor(s). \n", farm1.getName(), farm1.countFarmSensorType());
 		}
 
-		if (this.farm2 != null) {
+		if (farm2 != null) {
 			// getSensorQuantitySum function calculates the sum of the sensor quantity
 			// parameter "ALL" is put to get the sum for all sensor types
-			message += String.format("%s has %d sensor(s).", this.farm2.getName(), this.farm2.countFarmSensorType());
+			message += String.format("%s has %d sensor(s).", farm2.getName(), farm2.countFarmSensorType());
 		}
 
-		this.printMessage(message);
+		printMessage(message);
 
 	}
 
 	// Function 6: List sensors of specific farm, with type, price, weight, and quantity 
 	private void listFarmSensors() {
-		String farmName = this.getInputString("farm name");
+		String farmName = getInputString("farm name");
 		String message = "";
 		
 		// if no farm exists
-		if (this.checkFarmExist(farmName) == null) {
-			this.printMessage("No farm exists.");
+		if (checkFarmExist(farmName) == null) {
+			printMessage("No farm exists.");
 			return;
 		}
 		
-		if (this.farm1 != null) {
-			if (this.farm1.getName().equals(farmName)) {
+		if (farm1 != null) {
+			if (farm1.getName().equals(farmName)) {
 				
 				// check if sensors exist
-				message += this.farm1.listSensorDetails();
-				this.printMessage(message);
+				message += farm1.listSensorDetails();
+				printMessage(message);
 			}
 		} 
-		if (this.farm2 != null) {
-			if (this.farm2.getName().equals(farmName)) {
-				message += this.farm2.listSensorDetails();
-				this.printMessage(message);
+		if (farm2 != null) {
+			if (farm2.getName().equals(farmName)) {
+				message += farm2.listSensorDetails();
+				printMessage(message);
 			}
 		}
 	}
@@ -520,28 +520,28 @@ public class Interface {
 		int totalQuantity = 0;
 
 		// ask for sensor type input
-		typeName = this.getInputString(inputMessage);
+		typeName = getInputString(inputMessage);
 
 		// Check farm 1 and farm 2, sum up the sensor quantity
 		// if the quantity is 0, that means the sensor doesn't exist in any farm
-		if (this.farm1 != null) {
-			int quantity = this.farm1.getSensorQuantitySum(typeName);
+		if (farm1 != null) {
+			int quantity = farm1.getSensorQuantitySum(typeName);
 			totalQuantity += quantity;
 
 			// only output when the farm has the sensor
 			if (quantity > 0) {
 				message += String.format("%s sensors is at %s with quantity %d. \n",
-						typeName, this.farm1.getName(), this.farm1.getSensorQuantitySum(typeName));
+						typeName, farm1.getName(), farm1.getSensorQuantitySum(typeName));
 			}
 		}
-		if (this.farm2 != null) {
-			int quantity = this.farm2.getSensorQuantitySum(typeName);
+		if (farm2 != null) {
+			int quantity = farm2.getSensorQuantitySum(typeName);
 			totalQuantity += quantity;
 			
 			// only output when the farm has the sensor
 			if (quantity > 0) {
 				message += String.format("%s sensors is at %s with quantity %d. \n",
-						typeName, this.farm2.getName(), this.farm2.getSensorQuantitySum(typeName));
+						typeName, farm2.getName(), farm2.getSensorQuantitySum(typeName));
 			}
 		}
 		
@@ -551,7 +551,7 @@ public class Interface {
 		}
 
 		// output message
-		this.printMessage(message);
+		printMessage(message);
 
 	}
 	
@@ -561,25 +561,25 @@ public class Interface {
 		String message = "";
 		
 		// get farm name
-		String farmName = this.getInputString("farm name");
+		String farmName = getInputString("farm name");
 		
 		// if no farm exists
-		if (this.farm1 == null && this.farm2 == null) {
-			this.printMessage("No farm exists.");
+		if (farm1 == null && farm2 == null) {
+			printMessage("No farm exists.");
 			return;
 		}
 		
 		// start calculate total sensor cost of the farm
-		if (this.farm1 != null) {
-			if (this.farm1.getName().equals(farmName)) {
-				message = this.farm1.getFarmSensorCostSummary();
-				this.printMessage(message);
+		if (farm1 != null) {
+			if (farm1.getName().equals(farmName)) {
+				message = farm1.getFarmSensorCostSummary();
+				printMessage(message);
 			}
 		}
-		if (this.farm2 != null) {
-			if (this.farm2.getName().equals(farmName)) {
-				message = this.farm2.getFarmSensorCostSummary();			
-				this.printMessage(message);
+		if (farm2 != null) {
+			if (farm2.getName().equals(farmName)) {
+				message = farm2.getFarmSensorCostSummary();			
+				printMessage(message);
 			}
 		}
 		
