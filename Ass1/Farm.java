@@ -225,9 +225,8 @@ public class Farm {
 
 	// This is a reusable function for function 5 and 7
 	// This function calculates the sum of the specific sensor's quantity
-
 	// For Function 5: List total number of sensors of the farm
-	// Function 7: Display Sensor Details, List sensor quantity of the specific farm
+	// For Function 7: Display Sensor Details, List sensor quantity of the specific farm
 	public int getSensorQuantitySum(String typeName) {
 		int counter = 0;
 
