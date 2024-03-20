@@ -1,7 +1,6 @@
 /*	Chi Lam Tsang */
 
 import java.util.*;
-import javax.swing.JOptionPane;
 
 public class Sensor {
 	Scanner console = new Scanner(System.in);

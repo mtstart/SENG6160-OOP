@@ -223,7 +223,7 @@ public class Interface {
 		}
 
 		// get sensor type
-		typeName = JOptionPane.showInputDialog("Please enter a sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH): ");
+		typeName = this.getInputString("sensor type (Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH)");
 
 		// check if the sensor types are valid, e.g. Temperature, Pressure, Humidity, Soil Temperature, Soil, Soil PH
 		while (this.checkSensorType(typeName).equals("")) {
@@ -231,15 +231,24 @@ public class Interface {
 		}
 
 		// Check if the sensor type exists in any farm
-		// getFarmSensor function returns the sensor type that exists in the farm.
+		// getFarmSensor function returns the sensor type that exists in a farm.
 		// If no such sensor type exists, the function returns null.
-		farmSensor = getFarm.getFarmSensor(typeName);
+
+		// check if the sensor type exists in farm1. If not, check if the sensor type exists in farm2
+		if (farm1 != null) {
+			farmSensor = farm1.getFarmSensor(typeName);
+		} else if (farmSensor == null) {
+			if (farm2 != null) {
+				farmSensor = farm2.getFarmSensor(typeName);
+			}
+		}
 		
 		// if the sensor type exists in the farm, adjust the sensor quantity
 		// if not, add a sensor to the farm
 		if (farmSensor != null) {
 			this.addExistingSensor(getFarm, farmSensor);
-		} else {
+		}
+		else {
 			this.addNewSensor(getFarm, typeName);
 		}
 

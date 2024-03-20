@@ -15,18 +15,18 @@ public class Farm {
 	}
 
 	// Feature 1: Add Farm
-	public String addFarm(String farmname, String lastName) {
-		String farmName = "";
+	public String addFarm(String farmName, String lastName) {
+		String name = "";
 
 		// set the farm name
-		farmName = this.setFarmName(farmname, lastName);
+		name = this.setFarmName(farmName, lastName);
 
-		return farmName;
+		return name;
 	}
 
-	private String setFarmName(String farmname, String lastName) {
+	private String setFarmName(String farmName, String lastName) {
 
-		this.name = farmname + lastName;
+		this.name = farmName + lastName;
 
 		return this.name;
 	}
